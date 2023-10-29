@@ -9,12 +9,13 @@ const port = 3000;
 
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send('Hello Ayushi!!!')
-})
+// app.get('/', (req, res) => {
+//   res.send('Hello Ayushi!!!')
+// })
 
-// app.use('/api/auth', require('./routes/auth'))
-// app.use('/api/notes', require('./routes/notes'))
+//available routes
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/notes', require('./routes/notes'))
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`)
