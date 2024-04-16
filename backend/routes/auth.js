@@ -7,10 +7,10 @@ const router = express.Router();
 //we use express validation so that we can ensure if email is correct as per our criteria
 const { body, validationResult } = require("express-validator");
 
-//we use bcrypt so that we can generate hashcodes for password which can get saved in database.
+//we use bcrypt so that we can generate hash codes for password which can get saved in database.
 const bcrypt = require("bcryptjs");
 
-//userid password create krne ke baad we will give a token to the user so that he can login successfully. using jsonwebtoken i.e. jwt.io
+//user id password create karne ke baad we will give a token to the user so that he can login successfully. using jsonwebtoken i.e. jwt.io
 // jwt client and server ke bichme secure communication ensure krega.
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = "Ayuisagoodg$irl"
@@ -60,7 +60,7 @@ router.post(
     //catch errors
     catch (error) {
       console.error(error.message);
-      res.status(500).send("some error occured");
+      res.status(500).send("some error occurred");
     }
   }
 );
@@ -82,14 +82,14 @@ router.post(
     try{
       //to see if the input email exist in our database
       let user = await User.findOne({email});
-      //if it doesnt exist then this error will show
+      //if it does'nt exist then this error will show
       if(!user){
-        return res.status(400).json({error: "please login with correct credentials"})
+        return res.status(400).json({error: "email not found"})
       }
       //compare the input password with the encrypted password. it takes password and hash string
       const passwordCompare = await bcrypt.compare(password, user.password);
       if(!passwordCompare){
-        return res.status(400).json({error: "please try to login with correct credentials"})
+        return res.status(400).json({error: "incorrect password"})
       }
       //payload is the data of user that we will send
       const data = {
@@ -102,11 +102,11 @@ router.post(
       res.json({authToken});
     }catch(error){
       console.error(error.message);
-      res.status(500).send("internal server error occured");
+      res.status(500).send("internal server error occurred");
     }
   });
 
-  //Route 3: Get loggedin user details using the; Post "api/auth/getuser". login required.
+  //Route 3: Get logged in user details using the; Post "api/auth/getuser". login required.
   router.post("/getuser", fetchuser, async (req, res) => {
 
       try{

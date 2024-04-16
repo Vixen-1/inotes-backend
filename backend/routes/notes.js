@@ -11,7 +11,7 @@ router.get('/fetchallnotes', fetchuser, async (req, res)=>{
         res.json(note)
     }catch(error){
         console.error(error.message);
-        res.status(500).send("some error occured");
+        res.status(500).send("some error occurred");
     }
 })
 
@@ -63,7 +63,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res)=>{
             res.json({note})
         }catch(error){
             console.error(error.message);
-            res.status(500).send("some internal error occured");
+            res.status(500).send("some internal error occurred");
         }
 })
 

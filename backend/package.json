@@ -1,10 +1,12 @@
 {
-  "name": "inotes",
+  "name": "i-notes",
   "version": "1.0.0",
   "description": "application where you can save your notes on the cloud",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+
   },
   "author": "",
   "license": "ISC",
