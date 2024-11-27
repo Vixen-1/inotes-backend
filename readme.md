@@ -29,7 +29,8 @@ This project is an Express.js API that includes user authentication, validation,
 
 3. Set up environment variables. Create a `.env` file in the root directory and add the following:
     ```env
-    JWT_SECRET=your_jwt_secret
+    JWT_SECRET_KEY=your_jwt_secret
+    MONGO_URL=your connection string of mongodb database
     ```
 
 4. Start the server:
