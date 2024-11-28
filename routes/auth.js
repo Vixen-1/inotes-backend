@@ -3,7 +3,7 @@ const User = require("../models/User");
 require('dotenv').config();
 //to create routes on the link we use router 
 const router = express.Router();
-
+const passport = require('passport');
 //we use express validation so that we can ensure if email is correct as per our criteria
 const { body, validationResult } = require("express-validator");
 
@@ -13,7 +13,7 @@ const bcrypt = require("bcryptjs");
 //user id password create karne ke baad we will give a token to the user so that he can login successfully. using jsonwebtoken i.e. jwt.io
 // jwt client and server ke bichme secure communication ensure krega.
 const jwt = require('jsonwebtoken')
-const JWT_SECRET = process.env.JWT_SECRET_KET
+const JWT_SECRET = process.env.JWT_SECRET_KEY //AYUISAGOODG@IRL
 
 //to add a middleware in case we want to add new functionalities in future.
 // here in this case jab jab mujhe login required hogaa means to see if user is allowed to login and use my functionalities then i will call fetchser middleware.
@@ -54,7 +54,8 @@ router.post(
       });
       const data = {
         user:{
-          id: user.id
+          id: user.id,
+          name: user.name
         }
       }
 // to provide authorization token
@@ -99,7 +100,8 @@ router.post(
       //payload is the data of user that we will send
       const data = {
         user:{
-          id: user.id
+          id: user.id,
+          name: user.name
         }
       }
 
@@ -111,7 +113,6 @@ router.post(
     }
   });
 
-  //Route 3: Get logged in user details using the; Post "api/auth/getuser". login required.
   router.post("/getuser", fetchuser, async (req, res) => {
 
       try{
@@ -123,4 +124,23 @@ router.post(
         res.status(500).send("Internal Server Error")
       }
   });
+
+  // google loginn
+
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
+    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
+    res.redirect(`/dashboard?token=${token}`);
+});
+
+
+// facebook login  
+
+router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { session: false }), (req, res) => {
+    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
+    res.redirect(`/dashboard?token=${token}`);
+});
+
+
 module.exports = router;
