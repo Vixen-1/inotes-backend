@@ -1,18 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
 
-const mongoURI  = 'mongodb+srv://vixen:2800@cluster0.m3klwu0.mongodb.net/inotes';
-
-const connectToMongo = () => {
-  mongoose.connect(mongoURI,{
-     dbName: 'inotes'
-  })
-.then(()=> console.log("database connected"))
-.catch((e)=> console.log(e));
-}
-// const connectToMongo = require('./db');
+const connectToMongo = require('./db');
 
 connectToMongo();
 
@@ -25,7 +14,7 @@ const port = process.env.PORT || 5000;
 // OR, specify allowed origins and methods for tighter security
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:4000', 
+    origin: `${process.env.CORS_ORIGIN}` || 'http://localhost:4000', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
