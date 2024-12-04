@@ -17,7 +17,7 @@ const connectToMongo = () => {
 connectToMongo();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Allow CORS for all origins
 // app.use(cors());
@@ -25,7 +25,7 @@ const port = 5000;
 // OR, specify allowed origins and methods for tighter security
 app.use(
   cors({
-    origin: 'http://localhost:4000', 
+    origin: process.env.CORS_ORIGIN || 'http://localhost:4000', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
