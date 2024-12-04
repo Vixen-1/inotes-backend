@@ -25,7 +25,7 @@ const port = process.env.PORT || 5000;
 // OR, specify allowed origins and methods for tighter security
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:4000', 
+    origin: '*', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
