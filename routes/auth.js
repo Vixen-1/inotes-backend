@@ -216,7 +216,7 @@ router.get(
       { user: { id: req.user._id, name: req.user.name } },
       process.env.JWT_SECRET
     );
-    res.redirect(`/dashboard?token=${token}`);
+    res.redirect(`https://vixen-1.github.io/inotes/mainpage`);
   }
 );
 
@@ -233,7 +233,7 @@ router.get(
       { user: { id: req.user._id, name: req.user.name } },
       process.env.JWT_SECRET
     );
-    res.redirect(`/dashboard?token=${token}`);
+    res.redirect(`https://vixen-1.github.io/inotes/mainpage`);
   }
 );
 
