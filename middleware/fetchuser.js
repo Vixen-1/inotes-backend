@@ -1,26 +1,23 @@
-var jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const JWT_SECRET = process.env.JWT_SECRET_KEY
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 const fetchuser = (req, res, next) => {
-    //get the user from the jwt token and add id to req.
-    // const token = req.header('auth-token');
-    // if(!token){
-    //     res.status(401).send({error: "Please authenticate using valid token "})
-    // }
-    const authHeader = req.header('Authorization');
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).send({ error: "Please authenticate using a valid token" });
-    }
+  // Get the token from the Authorization header
+  const token = req.header('Authorization')?.replace('Bearer ', '');
 
-    const token = authHeader.split(" ")[1];
-    try{
-        const data = jwt.verify(token, JWT_SECRET)
-        req.user = data.user;
-        next()
-    }catch(error){
-        res.status(401).send({error: "Please authenticate using valid token "})
-    }
-}
-module.exports = fetchuser
+  if (!token) {
+    return res.status(401).json({ error: 'Please authenticate using a valid token' });
+  }
+
+  try {
+    const data = jwt.verify(token, JWT_SECRET);
+    req.user = data.user;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Please authenticate using a valid token' });
+  }
+};
+
+module.exports = fetchuser;

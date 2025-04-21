@@ -6,6 +6,9 @@ This project is an Express.js API that includes user authentication, validation,
 - **express-validator**: For validating input data.
 - **bcrypt.js**: For hashing passwords.
 - **jsonwebtoken**: For authentication using JWT tokens.
+- **nodemailer**: For sending otp for email verification.
+- **passport-github**: For authentication using Github.
+- **passport-google-oauth20**: For authentication using google.
 
 ## Features
 
