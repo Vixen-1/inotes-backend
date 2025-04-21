@@ -28,7 +28,8 @@ const NotesSchema = new Schema({
         default: false
     },
     sendDate: {
-        type: Date
+        type: Date,
+        default: null
     }
 });
 
